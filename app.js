@@ -27,9 +27,11 @@ function gameLogic() {
   // Удаление элементов
   function removeCube(cubes) {
     cubes.map((elem) => {
+      pointsCount = 0;
       elem.addEventListener("click", (e) => {
         e.preventDefault();
         e.target.remove();
+        gameResults(pointsCount++);
       });
     });
   }
@@ -39,47 +41,75 @@ function gameLogic() {
 
 gameLogic();
 // Логика контрольной панели
+// Таймер
+// ////////////////////////////////////////КОД ОШИБКИ//////////////////////////////
 const gameBlock = document.querySelector(".game-block");
-var start = document.querySelector(".start");
-var pause = document.querySelector(".pause");
-var newGame = document.querySelector(".new-game");
-let timer = document.querySelector(".timer");
-// timer
 
-function startTimer() {
-  let min = "01";
-  let sec = "00";
-  timer.textContent = `${min}:${sec}`;
-
-  let s = 60;
-  setInterval(() => {
-    if (s > 0) {
-      s--;
-      min = "00";
-      timer.textContent = `${min}:${s}`;
-      if (s < 10) timer.textContent = `${min}:0${s}`;
-    } else if (s === 0) {
-      timer.textContent = `${min}:00`;
-      clearInterval();
+function initCountdown() {
+  // Перезапуск игры
+  function event_click_cancel(event) {
+    pause();
+    time = [0, 0];
+    print();
+    location.reload();
+  }
+  // Старт || Стоп
+  function event_click_startpause(event) {
+    if (interval === null) {
+      start();
+      event.target.innerText = "pause";
+      gameBlock.classList.remove("block");
+    } else {
+      pause();
+      event.target.innerText = "start";
+      gameBlock.classList.add("block");
     }
-  }, 1000);
+  }
+  function start() {
+    pause();
+    interval = setInterval(count, 1000);
+  }
+  function pause() {
+    clearInterval(interval);
+    interval = null;
+  }
+  function print() {
+    let [minutes, seconds] = time;
+    if (seconds == 0) {
+      clearInterval(interval);
+    }
+    if (seconds < 10) {
+      table.innerHTML = `00:0${seconds}`;
+    } else {
+      table.innerHTML = `00:${seconds}`;
+    }
+  }
+  function count() {
+    time[1]--;
+
+    if (time[1] == -1) {
+      time[0]--;
+      time[1] = 59;
+    }
+
+    print();
+  }
+
+  const table = document.querySelector(".timer");
+  const toggleElement = document.querySelector(".start");
+  const cancelElement = document.querySelector(".new-game");
+  let interval = null;
+  let time = [01, 00];
+
+  // События
+  toggleElement.addEventListener("click", event_click_startpause);
+
+  cancelElement.addEventListener("click", event_click_cancel);
 }
-// Events
-
-start.addEventListener("click", () => {
-  gameBlock.classList.remove("block");
-  if (!start.hasAttribute("disable")) {
-    start.setAttribute("disabled", "disabled");
-    pause.removeAttribute("disabled");
-    startTimer();
-  }
-  pause.removeAttribute("disable");
-});
-pause.addEventListener("click", () => {
-  if (start.hasAttribute("disabled")) {
-    pause.setAttribute("disabled", "disabled");
-    start.removeAttribute("disabled");
-  }
-
-  gameBlock.classList.add("block");
-});
+initCountdown();
+///////////////////////////////////////////////////////////////////////////////////////////////
+// Вывод результатов
+function gameResults(count) {
+  let points = document.querySelector(".points");
+  points.textContent = count;
+}
