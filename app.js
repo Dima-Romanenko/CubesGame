@@ -1,8 +1,11 @@
 function gameLogic() {
   // Переменные
   const gameContainer = document.querySelector(".game-container");
+  let points = document.querySelector(".points");
+
   let cubesCount = 1500;
   const cubesArray = [];
+  let counter = 0;
   // Создание элемента
   function createCube() {
     const div = document.createElement("div");
@@ -27,14 +30,40 @@ function gameLogic() {
   // Удаление элементов
   function removeCube(cubes) {
     cubes.map((elem) => {
-      pointsCount = 0;
       elem.addEventListener("click", (e) => {
         e.preventDefault();
-        e.target.remove();
-        gameResults(pointsCount++);
+        removeTransform(e.target, counter);
+        setTimeout(() => {
+          e.target.remove();
+        }, 500);
+        gameResults(e.target);
       });
     });
   }
+  // Анимация удаления кубика
+  function removeTransform(remuveElem) {
+    remuveElem.classList.add("removeCube");
+    remuveElem.style.transition = "0.8s";
+  }
+  // Функция определяет количество очков
+
+  function gameResults(elem) {
+    let count = 0;
+    if (elem.style.backgroundColor === "yellow") {
+      count = 5;
+    } else if (elem.style.backgroundColor === "purple") {
+      count = 1;
+    } else if (elem.style.backgroundColor === "green") {
+      count = 3;
+    } else if (elem.style.backgroundColor === "red") {
+      count = -5;
+    } else if (elem.style.backgroundColor === "gray") {
+      count = 0;
+    }
+    counter += count;
+    points.innerHTML = counter;
+  }
+
   addCubes();
   removeCube(cubesArray);
 }
@@ -42,10 +71,10 @@ function gameLogic() {
 gameLogic();
 // Логика контрольной панели
 // Таймер
-// ////////////////////////////////////////КОД ОШИБКИ//////////////////////////////
-const gameBlock = document.querySelector(".game-block");
 
 function initCountdown() {
+  const gameBlock = document.querySelector(".game-block");
+
   // Перезапуск игры
   function event_click_cancel(event) {
     pause();
@@ -77,6 +106,7 @@ function initCountdown() {
     let [minutes, seconds] = time;
     if (seconds == 0) {
       clearInterval(interval);
+      location.reload();
     }
     if (seconds < 10) {
       table.innerHTML = `00:0${seconds}`;
@@ -107,9 +137,5 @@ function initCountdown() {
   cancelElement.addEventListener("click", event_click_cancel);
 }
 initCountdown();
-///////////////////////////////////////////////////////////////////////////////////////////////
+
 // Вывод результатов
-function gameResults(count) {
-  let points = document.querySelector(".points");
-  points.textContent = count;
-}

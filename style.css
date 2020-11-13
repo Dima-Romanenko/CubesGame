@@ -113,3 +113,7 @@ button:focus {
 .block {
   display: block;
 }
+.removeCube {
+  transform: scale(1.1);
+  transform: rotate(360deg);
+}
