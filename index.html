@@ -20,10 +20,31 @@
         </div>
       </div>
     </nav>
-
-    <div class="game-block block"></div>
-
-    <div class="game-container"></div>
+    <div class="container">
+      <div class="game-container">
+        <div class="game-block block"></div>
+      </div>
+      <div class="results">
+        <div class="result-title">
+          <h1>Best results</h1>
+        </div>
+        <div class="result-list"></div>
+      </div>
+      <div class="modal">
+        <div class="modal-title">
+          <h1>Yor score: <span class="modal-score">0</span></h1>
+        </div>
+        <form>
+          <input
+            class="input-name"
+            type="text"
+            name="name"
+            placeholder="name"
+          />
+          <button class="save-results">Save</button>
+        </form>
+      </div>
+    </div>
     <script src="./app.js"></script>
   </body>
 </html>
