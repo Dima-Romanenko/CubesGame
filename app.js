@@ -1,11 +1,12 @@
+"use strict";
 const modal = document.querySelector(".modal");
+const gameBlock = document.querySelector(".game-block");
+const saveResultsBtn = document.querySelector(".save-results");
 let modalScore = document.querySelector(".modal-score");
 let userName = document.querySelector(".input-name");
-const gameBlock = document.querySelector(".game-block");
 let resultList = document.querySelector(".result-list");
-const saveResultsBtn = document.querySelector(".save-results");
-
 let counter = 0;
+
 
 function gameLogic() {
   // Переменные
@@ -31,8 +32,12 @@ function gameLogic() {
   }
   // Функция определяет цвет кубика
   function generateColor() {
+    let index = 0;
     let colors = ["purple", "green", "yellow", "red", "gray"];
-    color = colors[Math.floor(Math.random() * 5)];
+    for (let i = 0; i < colors.length; i++) {
+      index = Math.floor(Math.random() * colors.length);
+    }
+    let color = colors[index];
     return color;
   }
   // Удаление элементов
@@ -161,8 +166,9 @@ saveResultsBtn.addEventListener("click", () => {
   saveLocalResults(resultData);
 });
 // Функция сохраняет имя и результат в localStorage
+let resultsArray;
+
 function saveLocalResults(res) {
-  let resultsArray;
   if (localStorage.getItem("resultsArray") === null) {
     resultsArray = [];
   } else {
