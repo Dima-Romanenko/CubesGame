@@ -12,7 +12,14 @@
         <div class="control-panel">
           <button class="start">Start</button>
           <button class="new-game">New game</button>
-          <div class="timer-board"></div>
+          <select name="sound-select" id="sound-select">
+            <option value="./sounds/kick-stomp.wav">Sound 1</option>
+            <option value="./sounds/tom-analog.wav">Sound 2</option>
+            <option value="./sounds/tom-lofi.wav">Sound 3</option>
+          </select>
+          <button class="volume">
+            <i class="fas fa-volume-mute volume-img"></i>
+          </button>
         </div>
         <div class="current-data">
           <div class="points">0</div>
@@ -42,9 +49,15 @@
             placeholder="name"
           />
           <button class="save-results">Save</button>
+          <button class="cansel-save">Cansel</button>
         </form>
       </div>
     </div>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"
+      integrity="sha256-KzZiKy0DWYsnwMF+X1DvQngQ2/FxF7MF3Ff72XcpuPs="
+      crossorigin="anonymous"
+    ></script>
     <script src="./app.js"></script>
   </body>
 </html>
