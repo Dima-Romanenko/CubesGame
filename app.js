@@ -107,12 +107,11 @@ function cubesGame() {
       } else {
         mute = true;
         music.volume = 0.0;
-        volume.querySelector(".volume-img").style.color = "#000";
+        volume.querySelector(".volume-img").style.color = "rgb(43, 43, 248)";
         buttonSound();
       }
     });
     // Функция определяет количество очков
-
     function gameResults(elem) {
       let count = 0;
       if (elem.style.backgroundColor === "yellow") {
@@ -281,10 +280,3 @@ function cubesGame() {
 }
 
 cubesGame();
-
-// function test(){
-//         var audio = document.createElement('audio');
-//         audio.setAttribute("autoplay","true");
-//         audio.innerHTML = "<source src=\"audio/test.mp3\" type=\"audio/mpeg\">";
-//         document.body.appendChild(audio);
-//     }

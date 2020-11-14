@@ -219,7 +219,7 @@ h1 {
   font-size: 18px;
 }
 .input-name:focus {
-  border: 2px solid rgba(47, 168, 80, 0.7);
+  border: 2px solid rgba(209, 16, 16, 0.938);
 }
 .modal button {
   width: 150px;
